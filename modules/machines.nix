@@ -27,7 +27,15 @@
           isNormalUser = true;
           extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
         };
+        users.users.cloudflared = {
+          isSystemUser = true;
+          group = "cloudflared";
+          home = "/var/lib/cloudflared";
+          createHome = true;
+        };
+        users.groups.cloudflared = {};
         sops = {
+          useTmpfs = true;
           age.keyFile = "/var/lib/sops-nix/key.txt";
           defaultSopsFile = ../secrets/${hostName}.yaml; # Relative path to your encrypted sops file
           defaultSopsFormat = "yaml";
