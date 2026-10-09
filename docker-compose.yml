@@ -1,6 +1,7 @@
 services:
   stfs-mqtt-cloud:
-    image: stfs-mqtt-cloud:latest
+    # image: stfs-mqtt-cloud:latest
+    image: 0xnryn/stfs-mqtt-cloud:latest
     container_name: stfs-mqtt-cloud
     command: /init
     privileged: true
