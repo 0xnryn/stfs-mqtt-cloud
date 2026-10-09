@@ -51,9 +51,8 @@
         cloudflared = {
           enable = true;
           tunnels = {
-            # mqtt
             "3510fb04-d9a4-4a90-9f4e-f55d4d11097f" = {
-              credentialsFile = config.sops.secrets."cloudflare".path;
+              tokenFile = config.sops.secrets."cloudflare".path;
               ingress = {
                 "mqtt.eltros.in" = "http://localhost:3001";        
               };
