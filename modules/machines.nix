@@ -8,7 +8,12 @@
         hostName = "stfs-mqtt-cloud";
       in
       {
-        isContainer = true;
+        imports = [
+          inputs.home-manager.nixosModules.home-manager
+          inputs.sops-nix.nixosModules.sops
+          inputs.self.nixosModules.configuration
+        ];
+        boot.isContainer = true;
         system.stateVersion = "26.05";
         nixpkgs.hostPlatform = "x86_64-linux";
         time.timeZone = "Asia/Kolkata";
@@ -37,10 +42,6 @@
             };
           };
         };
-        imports = [
-          inputs.home-manager.nixosModules.home-manager
-          inputs.self.nixosModules.mqtt-configuration
-        ];
       };
     };
   };
