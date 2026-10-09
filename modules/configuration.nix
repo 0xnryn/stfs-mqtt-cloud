@@ -3,6 +3,9 @@
   flake.nixosModules.configuration = { inputs, pkgs, config, ... }:
   {
     nixpkgs.config.allowUnfree = true;
+    # Disable NixOS management of Docker-managed /etc files
+    environment.etc."hosts".enable = false;
+    environment.etc."hostname".enable = false;
     environment.systemPackages = with pkgs;
     [
       tree

@@ -3,12 +3,13 @@
   configurations.nixos = {
     "stfs-mqtt-cloud" = {
       system = "x86_64-linux";
-      module = { ... }:
+      module = { modulesPath, ... }:
       let
         hostName = "stfs-mqtt-cloud";
       in
       {
         imports = [
+          "${modulesPath}/virtualisation/docker-image.nix"
           inputs.home-manager.nixosModules.home-manager
           inputs.sops-nix.nixosModules.sops
           inputs.self.nixosModules.configuration
@@ -28,7 +29,7 @@
         };
         sops = {
           age.keyFile = "/var/lib/sops-nix/key.txt";
-          defaultSopsFile = ./secrets/${hostName}.yaml; # Relative path to your encrypted sops file
+          defaultSopsFile = ../secrets/${hostName}.yaml; # Relative path to your encrypted sops file
           defaultSopsFormat = "yaml";
           secrets = {
             "datalogger_passwd" = {
@@ -38,7 +39,8 @@
               owner = "mosquitto"; # Mosquitto daemon must own this file
             };
             "cloudflare" = {
-              owner = "cloudflared"; # Cloudflared daemon must own this file
+              owner = "cloudflared";
+              group = "cloudflared"; # Explicitly setting group prevents sops-nix auto-lookup error
             };
           };
         };
