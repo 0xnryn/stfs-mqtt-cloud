@@ -13,7 +13,7 @@ services:
         reservations:
           memory: 200M
     volumes:
-      - ./key.txt:/var/lib/sops-nix/key.txt:ro
+      - ./stfs-mqtt-vps.txt:/var/lib/sops-nix/key.txt:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
       # Mosquitto persistence database
       - ./mosquitto.db:/var/lib/mosquitto/mosquitto.db
